@@ -1,0 +1,75 @@
+name: Update prices and deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  schedule:
+    - cron: "0 * * * *"   # co godzinę o pełnej godzinie
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'prices-scraper-${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm install
+          else
+            npm install --no-audit --no-fund || true
+          fi
+
+      - name: Run save.js to update prices.json
+        run: |
+          echo "Running scraper (save.js)..."
+          node save.js
+        env:
+          AUTHORIZATION: ${{ secrets.AUTHORIZATION }}
+          HEADERS_JSON: ${{ secrets.HEADERS_JSON }}
+          API_URL: ${{ secrets.API_URL }}
+          PAGE_SIZE: 100
+          PAGE_DELAY_MS: 18000
+
+      - name: Prepare public/ for Pages
+        run: |
+          mkdir -p public
+          if [ -f prices.json ]; then
+            mv prices.json public/
+            echo "Moved prices.json -> public/prices.json"
+          else
+            echo "ERROR: prices.json nie został wygenerowany" >&2
+            ls -la
+            exit 1
+          fi
+
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
