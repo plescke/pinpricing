@@ -26,8 +26,7 @@ const defaultHeaders = {
   "app-version": "5.26.0",
   apptype: "1",
   appversion: "5.26.0",
-  authorization:
-    "",
+  authorization: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyOGNkNzYwYTZhYzI0NTE1YjYxMDM2MmFiNGM1YWVjZiIsIm5hbWVpZCI6IjEyNzA2NDUzIiwiSWQiOiIxMjcwNjQ1MyIsInVuaXF1ZV9uYW1lIjoiWVAwMDEyNzA2NDUzIiwiTmFtZSI6IllQMDAxMjcwNjQ1MyIsInZlcnNpb24iOiJGQmgiLCJuYmYiOjE3NTcxODg3MTMsImV4cCI6MTc1NzE5MDUxMywiaXNzIjoieW91cGluODk4LmNvbSIsImRldmljZUlkIjoiMTc2YTJmNTQtOTY4Yy00M2FmLTgyMWItZTU0ZTE1ODUwOWEwIiwiYXVkIjoidXNlciJ9.hkWpkihKSfhGBBERpPjhyKYfAyVkGYpxq19bXpzgcFo",
   b3: "9af52d177e4343b5abc91e1ca3b49ccd-95753cbe4021713c-1",
   "content-type": "application/json",
   deviceid: "176a2f54-968c-43af-821b-e54e158509a0",
