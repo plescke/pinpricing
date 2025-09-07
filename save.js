@@ -8,7 +8,7 @@ const API_URL =
   process.env.API_URL ||
   "https://api.youpin898.com/api/homepage/pc/goods/market/querySaleTemplate";
 const PAGE_SIZE = Number(process.env.PAGE_SIZE || 100);
-const DELAY_MS = Number(process.env.PAGE_DELAY_MS || 20000);
+const DELAY_MS = Number(process.env.PAGE_DELAY_MS || 30000);
 const MAX_PAGES = process.env.MAX_PAGES
   ? Number(process.env.MAX_PAGES)
   : undefined;
